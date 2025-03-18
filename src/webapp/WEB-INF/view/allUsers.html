@@ -15,8 +15,6 @@
             <th>Lastname</th>
             <th>Age</th>
             <th>Email</th>
-            <th>Password</th>
-            <th>Roles</th>
         </tr>
         </thead>
         <tr th:each="user : ${users}">
@@ -25,8 +23,6 @@
             <td th:utext="${user.getLastname()}">LastName</td>
             <td th:utext="${user.getAge()}">Age</td>
             <td th:utext="${user.getEmail()}">Email</td>
-            <td th:utext="${user.getPassword()}">Password</td>
-            <td th:utext="${user.getRoles()}">Roles</td>
             </td>
             <td>
                 <a th:href="'/updateUser?id='+${user.id}">Update</a>
