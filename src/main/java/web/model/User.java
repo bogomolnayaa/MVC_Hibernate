@@ -2,6 +2,9 @@ package web.model;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
+
+import java.util.Objects;
 
 @Entity
 @Table(name = "users")
@@ -10,14 +13,29 @@ public class User {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     @Column(name = "name")
+    @NotEmpty(message = "Имя не может быть пустым")
+    @Pattern(regexp="^[а-яА-Яa-zA-Z]+$", message = "Используйте только русские или латинские буквы")
+    @Size(min = 2, max = 30, message = "Количество символов должно быть от 2 до 30")
     private String name;
+
     @Column(name = "lastname")
+    @NotEmpty(message = "Фамилия не может быть пустой")
+    @Pattern(regexp="^[а-яА-Яa-zA-Z]+$", message = "Используйте только русские или латинские буквы")
+    @Size(min = 2, max = 30, message = "Количество символов должно быть от 2 до 30")
     private String lastname;
+
     @Column(name = "age")
+    @NotNull(message = "Вы не указали возраст не может быть пустой")
+    @Min(value = 0, message = "Возраст должен быть положительным числом")
     private int age;
+
     @Column(name = "email")
+    @NotEmpty(message = "Email cannot be empty.")
+    @Email(message = "Value does not match Email.")
     private String email;
+
 
     public User() {
 
@@ -70,7 +88,29 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
-}
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", age=" + age +
+                ", email='" + email + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id == user.id && age == user.age && Objects.equals(name, user.name) && Objects.equals(lastname, user.lastname) && Objects.equals(email, user.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, lastname, age, email);
+    }
+}
 
 
