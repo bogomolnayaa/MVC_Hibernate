@@ -27,13 +27,13 @@ public class User {
     private String lastname;
 
     @Column(name = "age")
-    @NotNull(message = "Вы не указали возраст не может быть пустой")
+    @NotNull(message = "Вы не указали возраст")
     @Min(value = 0, message = "Возраст должен быть положительным числом")
     private int age;
 
     @Column(name = "email")
-    @NotEmpty(message = "Email cannot be empty.")
-    @Email(message = "Value does not match Email.")
+    @NotEmpty(message = "Вы не указали email")
+    @Email(message = "Некорректное значение email")
     private String email;
 
 
